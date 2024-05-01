@@ -107,10 +107,10 @@ module aiHub 'modules/ai-hub.bicep' = {
 
 // Optional VM and Bastion jumphost to help access the network isolated environment
 module dsvm 'modules/ai-jumpbox.bicep' = if (deployJumphost) {
-  name: 'vm-${name}-${uniqueSuffix}'
+  name: 'vm-${name}'
   params: {
     location: location
-    virtualMachineName: 'vm-${name}-${uniqueSuffix}'
+    virtualMachineName: 'vm-${name}'
     subnetId: '${vnet.outputs.id}/subnets/snet-default'
     adminUsername: dsvmJumpboxUsername
     adminPassword: dsvmJumpboxPassword
@@ -119,9 +119,9 @@ module dsvm 'modules/ai-jumpbox.bicep' = if (deployJumphost) {
 }
 
 module bastion 'modules/ai-bastion.bicep' = if (deployJumphost) {
-  name: 'bas-${name}-${uniqueSuffix}'
+  name: 'bas-${name}'
   params: {
-    bastionHostName: 'bas-${name}-${uniqueSuffix}'
+    bastionHostName: 'bas-${name}'
     location: location
     vnetName: vnet.outputs.name
     addressPrefix: azureBastionSubnetPrefix
